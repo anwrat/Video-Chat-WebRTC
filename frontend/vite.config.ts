@@ -10,4 +10,7 @@ export default defineConfig({
     tailwind(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  define:{
+    global: 'window',
+  }
 })
