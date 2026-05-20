@@ -1,13 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import {io} from 'socket.io-client';
+import {useRef, useEffect} from 'react';
+
+const baseURL = import.meta.env.VITE_BACKEND_URL;
+const socket = io(baseURL);
+
+//Only one room for now
+const ROOM_ID = "room-1";
 
 function App() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(()=>{
+    const start = async() =>{
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+      });
+      if(videoRef.current){
+        videoRef.current.srcObject = stream;
+      }
+    }
+    start()
+  },[]);
 
   return (
     <>
-      <p>Test</p>
+      <video ref = {videoRef} autoPlay/>
     </>
   )
 }
