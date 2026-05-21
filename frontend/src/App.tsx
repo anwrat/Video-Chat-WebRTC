@@ -1,17 +1,17 @@
 import {io} from 'socket.io-client';
 import {useRef, useEffect, useState} from 'react';
-import Peer from 'simple-peer';
+import * as SimplePeer from 'simple-peer';
 import {createPeer, addPeer} from './utils/peer';
 import Video from './components/atoms/Video'; 
 
 interface PeerRef{
   peerId: string;
-  peer: Peer.Instance;
+  peer: SimplePeer.Instance;
 }
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 const socket = io(baseURL);
-console.log(Peer);
+console.log(SimplePeer);
 
 //Only one room for now
 const ROOM_ID = "room-1";

@@ -1,8 +1,8 @@
-import Peer from 'simple-peer';
+import * as SimplePeer from 'simple-peer';
 import { type Socket } from 'socket.io-client';
 
 export function createPeer(socket: Socket,userToSignal: string, callerId: string, stream: MediaStream){
-    const peer = new Peer({
+    const peer = new SimplePeer.default({
         initiator: true,
         trickle: false,
         stream,
@@ -25,8 +25,8 @@ export function createPeer(socket: Socket,userToSignal: string, callerId: string
     return peer;
 }
 
-export function addPeer(socket: Socket, incomingSignal: Peer.SignalData, callerId: string, stream: MediaStream){
-    const peer = new Peer({
+export function addPeer(socket: Socket, incomingSignal: SimplePeer.SignalData, callerId: string, stream: MediaStream){
+    const peer = new SimplePeer.default({
         initiator: false,
         trickle: false,
         stream,
