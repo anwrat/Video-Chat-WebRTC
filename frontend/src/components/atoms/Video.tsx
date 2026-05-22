@@ -7,6 +7,7 @@ interface VideoProps{
 
 export default function Video({peer}: VideoProps){
     const videoRef = useRef<HTMLVideoElement>(null);
+    console.log("From video component: ", peer);
     useEffect(()=>{
         peer.on('stream', (stream)=>{
             if(videoRef.current){

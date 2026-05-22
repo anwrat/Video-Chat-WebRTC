@@ -1,6 +1,6 @@
 import {io} from 'socket.io-client';
 import {useRef, useEffect, useState} from 'react';
-import * as SimplePeer from 'simple-peer';
+import SimplePeer from 'simple-peer/simplepeer.min.js';
 import {createPeer, addPeer} from './utils/peer';
 import Video from './components/atoms/Video'; 
 
@@ -39,10 +39,11 @@ function App() {
           newPeers.push({peerId: userId, peer});
         });
         setPeers(newPeers);
+        console.log("Peers: ",peers);
       });
 
-      socket.on('user-joined',(userId)=>{
-        console.log("New user joined: ",userId);
+      socket.on('user-joined', (userId: string) => {
+        console.log('User joined: ', userId);
       });
 
       socket.on('offer', (payload)=>{
@@ -52,8 +53,14 @@ function App() {
 
         if (existingPeer) return;
         const peer = addPeer(socket, payload.signal, payload.callerId, stream);
-        peersRef.current.push({peerId: payload.callerId, peer});
-        setPeers((users)=>[...users, {peerId: payload.callerId, peer}])
+        const newPeerObj = {peerId: payload.callerId, peer};
+        peersRef.current.push(newPeerObj);
+        setPeers((prevUsers)=>{
+          if(prevUsers.some(p=>p.peerId === payload.callerId)){
+            return prevUsers;
+          }
+          return [...prevUsers, newPeerObj];
+        });
       });
 
       socket.on('answer',(payload)=>{
