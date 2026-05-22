@@ -45,6 +45,6 @@ export function addPeer(socket: Socket, incomingSignal: SimplePeer.SignalData, c
             callerId,
         });
     });
-    peer.signal(incomingSignal);
+    // peer.signal(incomingSignal);
     return peer;
 }

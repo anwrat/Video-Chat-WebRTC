@@ -17,6 +17,6 @@ export default function Video({peer}: VideoProps){
     }, [peer]);
 
     return(
-        <video playsInline autoPlay ref = {videoRef} muted className='w-3xl'/>
+        <video playsInline autoPlay ref = {videoRef} className='w-3xl'/>
     );
 }
