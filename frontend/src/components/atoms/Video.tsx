@@ -3,9 +3,10 @@ import Peer from 'simple-peer';
 
 interface VideoProps{
     peer: Peer.Instance;
+    className?: string;
 }
 
-export default function Video({peer}: VideoProps){
+export default function Video({peer, className = ''}: VideoProps){
     const videoRef = useRef<HTMLVideoElement>(null);
     console.log("From video component: ", peer);
     useEffect(()=>{
