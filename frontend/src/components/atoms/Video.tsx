@@ -9,11 +9,15 @@ export default function Video({peer}: VideoProps){
     const videoRef = useRef<HTMLVideoElement>(null);
     console.log("From video component: ", peer);
     useEffect(()=>{
-        peer.on('stream', (stream)=>{
+        const handleStream = (stream: MediaStream) =>{
             if(videoRef.current){
                 videoRef.current.srcObject = stream;
             }
-        });
+        }
+        peer.on('stream', handleStream);
+        return () =>{
+            peer.off('stream', handleStream);
+        }
     }, [peer]);
 
     return(

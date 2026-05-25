@@ -75,9 +75,6 @@ function App() {
           }
           return [...prevUsers, newPeerObj];
         });
-        setTimeout(()=>{
-          peer.signal(payload.signal);
-        }, 50);
       });
 
       socket.on('answer',(payload)=>{
